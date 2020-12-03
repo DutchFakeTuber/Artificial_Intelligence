@@ -1,8 +1,8 @@
 # Artificial_Intelligence
 This project is for the minor Internet of Things (IoT) on Hanze UAS.
 ### The creators of this project are:
-@DutchFakeTuber \
-@Emylvanderkooi
+* @DutchFakeTuber
+* @Emylvanderkooi
 
 ### This section of the AI is for the Django webserver;
 It displays the survey made for the AI, \
