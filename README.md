@@ -9,6 +9,6 @@ It displays the survey made for the AI, \
 Prints the generated results.
 
 ## Changes made to the project:
-> v1.0: Uploaded to GitHub; 03-12-2020 \
-> v1.0.1: Tested if the connection to GitHub still existed (Changed project name from AI to Artificial Intelligence); 03-12-2020 \
+> v1.0: Uploaded to GitHub; _03-12-2020_ \
+> v1.0.1: Changed project name from AI to Artificial Intelligence; _03-12-2020_ \
 > v1.1: _Not yet posted_
