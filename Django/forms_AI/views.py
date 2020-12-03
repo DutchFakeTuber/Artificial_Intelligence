@@ -61,3 +61,4 @@ def index(request):
             print(x)
         return HttpResponse((f'Question {x+1} is: ' + answers[x] + ' ') for x in range(12))
     return render(request, 'form.html', information)
+    
