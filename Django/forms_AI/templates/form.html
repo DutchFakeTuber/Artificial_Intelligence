@@ -3,90 +3,74 @@
 
 {% block page_content %}
 <style>
-    header {
-        background-color: gray;
-        margin-left: auto;
-        margin-right: auto;
-        width: 75%;
-        padding: 20px;
-        position: relative;
-        text-align: center;
-        font-size: 30px;
-        color: white;
-    }
     .context {
         margin-left: auto;
         margin-right: auto;
         text-align: center;
-        width: 75%;
-        padding: 20px;
-        background-color: whitesmoke;
+        width: 95%;
+        padding: 5px;
     }
     .question {
         margin-left: auto;
         margin-right: auto;
         text-align: center;
-        width: 75%;
-        padding: 20px;
-        background-color: whitesmoke;
+        width: 95%;
+        padding: 5px;
     }
-    .submit-survey {
+    .line {
+        width: 80%;
         margin-left: auto;
         margin-right: auto;
-        text-align: center;
-        width: 75%;
-        padding: 20px;
-        background-color: whitesmoke;
     }
 </style>
-
-<head>
-    <title>Artificial Intelligence</title>
-</head>
-<header>Mental Health in the Tech Industry</header>
 <div class="context">
-    <p style="width: 75%; margin-left: auto; margin-right: auto; text-align: left;">
+    <h1>Mental Health in the Tech Industry</h1>
+    <div class="line" style="width: 100%;"></div>
+    <p>
         Welcome to the Artificial Intelligence survey regarding Mental Health in the Tech Industry!
         This survey is used to look for potential problems with workflow caused by mental health issues.
         The Artificial Intelligence is not <b>(yet)</b> acurate enough to precisely predict if a person is actually suffering from a mental illness, but it could be benificial for employers.
     </p>
-    <h4>What is the outcome of this survey?</h4>
-    <p style="width: 75%; margin-left: auto; margin-right: auto; text-align: left;">
+    <h5>What is the outcome of this survey?</h5>
+    <p>
         The outcome can only be seen by the employer. This method is used to keep the privacy and anonimity at a maximum.
         The outcome can be used to alter the workflow at your company or maybe even take some drastic measures to increase the mental health of its employees.
     </p>
-    <h4>All questions have to be answered before the survey is submitted. There are twelve questions in total.</h4>
+    <h5>All questions have to be answered before the survey is submitted. There are twelve questions in total.</h5>
+    <div class="line"></div>
 </div>
 <form method="POST" class='post-form'>
     {% csrf_token %}
     {% for x, y in questions|zip:answers %}
     <div class="question {{ x.pk }}">
         <div class="question">
-            <h3 class="questions_{{ x.pk }}_text">{{ x.question }}</h3>
+            <h6 class="questions_{{ x.pk }}_text">{{ x.question }}</h6>
             <div id='radiobuttons' style="margin-top: 1em;">
                 {{ y }}
             </div>
         </div>
     </div>
+    <div class="line"></div>
     {% endfor %}
     <div class="submit-survey">
         <button id ="button" type="submit">Submit Survey</button>
     </div>
 </form>
 <script>
-    // First remove the ul and li tags
-    $('ul').contents().unwrap();
-    $('li').contents().unwrap();
+    $('#radiobuttons ul li').contents().unwrap().unwrap();
 
     // Then move the input to outside of the label
     $('.radio > label > input').each(function() {
         $(this).parent().before(this);
     });
 
-    // Then apply the jQuery UI buttonset to all questions
-    $('#radiobuttons input[type=radio]').each(function() {
-        $(this).parent().buttonset();
+    $.noConflict();
+    jQuery( document ).ready(function( $ ) {
+        // Then apply the jQuery UI buttonset to all questions
+        $('#radiobuttons input[type=radio]').each(function() {
+            $(this).parent().buttonset();
+        });
+        $( "#button" ).button();
     });
-    $( "#button" ).button();
 </script>
 {% endblock %}
