@@ -4,7 +4,14 @@ This project is for the minor Internet of Things (IoT) on Hanze UAS.
 [DutchFakeTuber](https://github.com/DutchFakeTuber)\
 [Emylvanderkooi](https://github.com/Emylvanderkooi)
 
-### How to run the code:
+## Function for the code:
+This portion of the AI Assignment is for making the calculations made by the AI visible with webpages. \
+Firstly, the user can add extra data by filling in a survey that consists of twelve questions regarding _Mental Health in the Tech Industry_.
+Then, the AI will calculate all data and the calculated data gets displayed by the Django API.
+
+The dataset that has been used is the [Mental Health in the Tech Industry](https://www.kaggle.com/anth7310/mental-health-in-the-tech-industry)
+
+## How to run the code:
 First, it is recommended, or even necessary, to create a _Python virtual environment_. \
 In this case, Microsoft Visual Studio Code is used as IDE. \
 Firstly, check if you have Python 3.x on your machine.
@@ -30,10 +37,6 @@ For running the Django API enter the following:
 cd ./Django <ENTER>
 py manage.py runserver <ENTER>
 ```
-### This section of the AI is for the Django webserver;
-It displays the survey made for the AI, \
-Prints the generated results.
-
 ## Changes made to the project:
 > v1.0: Uploaded to GitHub; _03-12-2020_ \
 > v1.0.1: Changed project name from AI to Artificial Intelligence; _03-12-2020_ \
