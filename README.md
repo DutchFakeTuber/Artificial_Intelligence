@@ -4,6 +4,7 @@ This project is for the minor Internet of Things (IoT) on Hanze UAS.
 [DutchFakeTuber](https://github.com/DutchFakeTuber)\
 [Emylvanderkooi](https://github.com/Emylvanderkooi)
 
+---
 ## Function for the code:
 This portion of the AI Assignment is for making the calculations made by the AI visible with webpages. \
 Firstly, the user can add extra data by filling in a survey that consists of twelve questions regarding _Mental Health in the Tech Industry_.
@@ -11,15 +12,16 @@ Then, the AI will calculate all data and the calculated data gets displayed by t
 
 The dataset that has been used is the [Mental Health in the Tech Industry](https://www.kaggle.com/anth7310/mental-health-in-the-tech-industry)
 
+---
 ## How to run the code:
 First, it is recommended, or even necessary, to create a _Python virtual environment_. \
 In this case, Microsoft Visual Studio Code is used as IDE. \
 Firstly, check if you have Python 3.x on your machine.
 > Python 3.7.5 and Python 3.9.0 were used in this case, both functioned perfectly fine.
 
-Secondly, type the following in the terminal of your IDE (in this case VS Code)
+Secondly, type the following line in the terminal of your IDE (in this case VS Code)
 ```bash
-py -m venv {name venv} #The name of the folder is up to you
+py -m venv {name venv} # The name of the folder is up to you
 ```
 If you are using VS Code, executing the virtual environment script can be tricky if the terminal is not allowed to run scripts. In order to tackle that problem, create a _.vscode_ folder in the project folder with a _settings.json_ file. In this file, enter the following:
 ```json
@@ -38,6 +40,8 @@ cd ./Django <ENTER>
 py manage.py runserver <ENTER>
 ```
 ## Changes made to the project:
-> v1.0: Uploaded to GitHub; _03-12-2020_ \
-> v1.0.1: Changed project name from AI to Artificial Intelligence; _03-12-2020_ \
-> v1.1: _Not yet posted_
+> | Version | Date       | Comments                                                 |
+> | :-----: | :--------: | -------------------------------------------------------- |
+> | v0.1    | 03-12-2020 | Uploaded to GitHub. |
+> | v0.1.1  | 03-12-2020 | Changed project name from AI to Artificial_Intelligence. |
+> | v0.2    | 04-12-2020 | Changed look of the User Interface. Added links to the sidebar for easy redirects. Also added comments to finished files. |

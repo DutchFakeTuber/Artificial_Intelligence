@@ -3,12 +3,21 @@
 
 {% block page_content %}
 <style>
+    /* Specific CSS Styles for the page */
     .context {
         margin-left: auto;
         margin-right: auto;
         text-align: center;
         width: 95%;
-        padding: 5px;
+    }
+    p {
+        /* Padding TOP LEFT/RIGHT BOTTOM in Pixels */
+        margin: auto;
+        width: 85%;
+    }
+    h6 {
+        margin: auto;
+        width: 85%;
     }
     .question {
         margin-left: auto;
@@ -22,7 +31,14 @@
         margin-left: auto;
         margin-right: auto;
     }
+    .submit-survey {
+        width: 80%;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
 </style>
+<!-- Context explaining the general information and purpose of the survey -->
 <div class="context">
     <h1>Mental Health in the Tech Industry</h1>
     <div class="line" style="width: 100%;"></div>
@@ -33,12 +49,14 @@
     </p>
     <h5>What is the outcome of this survey?</h5>
     <p>
-        The outcome can only be seen by the employer. This method is used to keep the privacy and anonimity at a maximum.
+        The outcome can only be seen by the employer. This method is used to keep the privacy and anonimity of the employees at a maximum.
         The outcome can be used to alter the workflow at your company or maybe even take some drastic measures to increase the mental health of its employees.
     </p>
     <h5>All questions have to be answered before the survey is submitted. There are twelve questions in total.</h5>
-    <div class="line"></div>
+    <div class="line" style="width: 100%"></div>
 </div>
+
+<!-- The Django loop for the Radio Buttons -->
 <form method="POST" class='post-form'>
     {% csrf_token %}
     {% for x, y in questions|zip:answers %}
@@ -52,25 +70,32 @@
     </div>
     <div class="line"></div>
     {% endfor %}
+    <!-- Button for submitting filled in answers -->
     <div class="submit-survey">
         <button id ="button" type="submit">Submit Survey</button>
     </div>
 </form>
+
+<!-- JavaScript code for making content look better -->
 <script>
+    // Unwrap the radiobuttons from <ul> and <li> elements
     $('#radiobuttons ul li').contents().unwrap().unwrap();
 
-    // Then move the input to outside of the label
+    // Then move all Radio Buttons outside of the label
     $('.radio > label > input').each(function() {
         $(this).parent().before(this);
     });
 
+    // Enable jQuery noConflict function to ensure nothing else gets changed
     $.noConflict();
     jQuery( document ).ready(function( $ ) {
         // Then apply the jQuery UI buttonset to all questions
         $('#radiobuttons input[type=radio]').each(function() {
             $(this).parent().buttonset();
         });
+        // Change looks of the Button with jQuery
         $( "#button" ).button();
     });
 </script>
+<!-- End of 'form.html'; Actual end is in 'base.html' -->
 {% endblock %}

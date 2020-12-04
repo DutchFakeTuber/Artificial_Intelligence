@@ -26,7 +26,22 @@ SECRET_KEY = '^h923d-^!u8ulv7%c8yx5k1_e@v)-eev4#y_5e**$)=xv0&g#w'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.178.14', '127.0.0.1']
+"""
+In this case LocalTunnel is used for webhosting.
+In order to activate LocalTunnel, make sure you have Node.js on your system.
+Type the following line(s) in the CMD (Administrator mode) environment to install LocalTunnel:
+    npm install -g localtunnel
+Now you're able to host your website using the following line(s):
+    lt --port 8000 OR
+    lt --port 8000 --subdomain {name}
+
+Now you can activate the Django webserver using:
+    py manage.py runserver 0.0.0.0:8000
+"""
+# If the webserver is accessible from the internet:
+ALLOWED_HOSTS = ['*']
+# If the webserver is hosted in its own local environment (recommended)
+# ALLOWED_HOSTS = ['192.168.178.14', '127.0.0.1']
 
 
 # Application definition

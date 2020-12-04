@@ -2,5 +2,5 @@ from django.urls import path
 from results_AI import views
 
 urlpatterns = [
-    path('', views.results, name='results')
+    path('', views.results, name='results_AI_index')
 ]

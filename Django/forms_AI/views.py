@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from results_AI.models import ResultsTable
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from . import forms
@@ -35,8 +36,11 @@ Answer_Question = {
     "Question_12": ["Yes, all of them", "Some of them", "None of them"],
 }
 
+# Function for the forms.html file
 def index(request):
+    # Fetch all data from the Questions class in models.py (database)
     questionTextRaw = Questions.objects.all()
+    # Fetch all RadioButton functions
     answers_1 = forms.RadioButtons_questionOne()
     answers_2 = forms.RadioButtons_questionTwo()
     answers_3 = forms.RadioButtons_questionThree()
@@ -49,16 +53,29 @@ def index(request):
     answers_10 = forms.RadioButtons_questionTen()
     answers_11 = forms.RadioButtons_questionEleven()
     answers_12 = forms.RadioButtons_questionTwelve()
+    # Put all RadioButton functions into an array
     totalAnswers = [answers_1, answers_2, answers_3, answers_4, answers_5, answers_6, answers_7, answers_8, answers_9, answers_10, answers_11, answers_12]
+    # Put all data into a dictionary
     information = {
         'questions': questionTextRaw,
         'answers': totalAnswers,
     }
+    # If the Submit button is pressed:
     if request.method == 'POST':
+        # Array with all names of the RadioButton elements
         allAnswers = ["question_1", "question_2", "question_3", "question_4", "question_5", "question_6", "question_7", "question_8", "question_9", "question_10", "question_11", "question_12"]
+        # Fetch all values of the RadioButton elements and put it into an array
         answers = [request.POST.get(x) for x in allAnswers]
-        for x in answers:
-            print(x)
+
+        # """ # BEGIN - For testing purposes only;
+        # Print all answers into the terminal
+        # for x in answers:
+            # print(x)
+        
+        # Return a HTTP Response and put all fetched data there
         return HttpResponse((f'Question {x+1} is: ' + answers[x] + ' ') for x in range(12))
-    return render(request, 'form.html', information)
+        # """ # END - For testing purposes only
+    
+    # Send all data to the forms.html file to be used there
+    return render(request, 'forms_AI_index.html', information)
     

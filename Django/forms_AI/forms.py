@@ -1,5 +1,4 @@
 from django import forms
-from django.utils.safestring import mark_safe
 
 # All answers of each question and their respective values
 Answer_Question = {
@@ -64,17 +63,20 @@ Answer_Question = {
         ],
 }
 
+# Making the Radio Button function for views.py and HTML.
+# Each Question has its own radiobutton (12x total).
 class RadioButtons_questionOne(forms.Form):
     question_1 = forms.ChoiceField(
-        label='',
+        label='', # Label is in this case not necessary, as the question is built in HTML.
         choices=[
-            (Answer_Question['Question_1'][0], Answer_Question['Question_1'][1]),
+            (Answer_Question['Question_1'][0], Answer_Question['Question_1'][1]), # The first in line is the value that we want, and the second is what the viewer sees.
             (Answer_Question['Question_1'][2], Answer_Question['Question_1'][3]),
             (Answer_Question['Question_1'][4], Answer_Question['Question_1'][5]),
         ],
-        required=True,
+        required=True, # Making the Radio Button required. If the user presses the Submit Button without filling the Survey in properly, the page does not get redirected.
         widget=forms.RadioSelect
-    )
+    ) #Change the type of widget to RadioButton.
+# The rest of the functions are essentially the same.
 class RadioButtons_questionTwo(forms.Form):
     question_2 = forms.ChoiceField(
         label='',
