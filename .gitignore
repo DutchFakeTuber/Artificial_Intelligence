@@ -5,16 +5,14 @@
 # Not including the virtualenv as it probably does not work on another machine anyways.
 /virtualenv
 
+*.py[co]
+
 # Artificial_Intelligence folder
-Django/Artificial_Intelligence/__pycache__
 
 # forms_AI folder
-Django/forms_AI/__pycache__
 Django/forms_AI/migrations
 
 # mainPage folder
-Django/mainPage/__pycache__
 
 # results_AI folder
-Django/results_AI/__pycache__
 Django/results_AI/migrations
