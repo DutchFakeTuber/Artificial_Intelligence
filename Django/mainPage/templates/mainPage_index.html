@@ -1,6 +1,71 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block page_content %}
-
-
+<style>
+    /* Specific CSS Styles for the page */
+    .context {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        width: 95%;
+    }
+    .ui-state-highlight {
+        margin: 0 10px 0;
+        padding: 0 .7em;
+        width: 85%;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+    }
+    .text {
+        /* Padding TOP LEFT/RIGHT BOTTOM in Pixels */
+        margin: auto;
+        width: 85%;
+    }
+    .line {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .submit-survey {
+        width: 80%;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+<!-- Context explaining the general information and purpose of the survey. -->
+<div id="content">
+    <div class="context">
+        <h1>Artificial Intelligence Home</h1>
+        <div class="line" style="width: 100%;"></div>
+        <div class="ui-widget">
+            <div class="ui-state-highlight ui-corner-all">
+                <p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+                <strong>Attention:</strong> If this website is accessed via a mobile phone, please hold the device horizontally. Only then the sidebar is viewable.</p>
+            </div>
+        </div>
+        <div class="line" style="width: 100%"></div>
+        <p class="text">
+            Welcome to the Artificial Intelligence assignment made by <b>Sybrand van Loenen</b> and <b>Emyl van der Kooi</b>.
+            This assignment is focussing on making predictions based on questions from the Mental Health in the Tech Industry survey.
+            In order to predict a specific outcome of a question, a survey is made that can be filled in by anyone.
+        </p>
+        <h5>Where can I find the survey?</h5>
+        <p class="text">
+            You are able to access the survey by clicking on the <b>Survey</b> button on the sidebar. The survey consists of twelve questions, all of them are from the Mental Health in the Tech Industry survey.
+            The dataset can be found here: <a href="https://www.kaggle.com/anth7310/mental-health-in-the-tech-industry" target="_blank" class="Kaggle" style="color: blue;">Mental Health in the Tech Industry</a>.
+            After the survey has been filled in by the employees, the employer can view the overall results on the results page.
+        </p>
+        <h5>Where can I find the results of the survey?</h5>
+        <p class="text">
+            The results are accessible by clicking the results button in the sidebar. If this website is used by the company, the page will only be accessible by the employer.
+            But for now, it is accessible for everyone.
+        </p>
+        <p5>
+            Please feel free to look around and if you are interested in the code, it is stored on <b>GitHub</b>. Simply click on the <b>GitHub</b> button in the sidebar.
+        </p5>
+        <div class="line" style="width: 100%"></div>
+    </div>
+</div>
 {% endblock %}
