@@ -1,0 +1,378 @@
+{% extends "base.html" %}
+{% load static %}
+{% load tags %}
+
+{% block page_content %}
+
+<style>
+    canvas {
+        min-height: 100%;
+        max-width: 100%;
+        max-height: 100%;
+        height: auto!important;
+        width: auto!important;
+    }
+</style>
+
+<div id="content">
+    <!-- Navigation bar at the top of the screen. -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+
+            <button type="button" id="sidebarCollapse" class="btn btn-info">
+                <i class="fas fa-align-left"></i>
+                <span>Toggle Sidebar</span>
+            </button>
+            <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-align-justify"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'results_AI_index' %}">Recommendations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'results_AI_allQuestions' %}">All Questions</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'results_AI_perQuestion' %}">Per Question</a>
+                    </li>
+                    <!-- OPTIONAL -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'results_AI_howDoesItWork' %}">How does it work?</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="elaboration">
+        <h4 style="text-align: center;">Polar Area Charts per question</h4>
+        <p style="text-align: left; width: 50%; margin-left: auto; margin-right: auto;">
+            All questions that are available on the Survey page are displayed here in detail.
+            For each question there are two <a href="https://www.chartjs.org/docs/latest/charts/polar.html" target="_blank" class="Chartjs Polar Chart" style="color: blue;">Polar Area Charts</a>.
+            The left chart displays the amount of answers given to the particular question, including the answers from the <a href="https://www.kaggle.com/anth7310/mental-health-in-the-tech-industry" target="_blank" class="Kaggle" style="color: blue;">Dataset</a>, and the right chart displays the amount of answers given via the Survey.
+        </p>
+    </div>
+    {% for x in dataQuestions %}
+    {% if x.pk == 1 or x.pk == 3 or x.pk == 5 or x.pk == 7 or x.pk == 9 or x.pk == 11 %}
+    <div class="question_{{ x.pk }} bg-light" style="width: 100%; padding: 0px 10px 0px; overflow: hidden;">
+        <h4 class="question-{{ x.pk }}-text" style="text-align: center; padding: 10px 0px 10px;">Question {{ x.pk }}: {{ x.question }}</h4>
+        <!-- Results shown of the survey with the dataset -->
+        <div class="question-{{ x.pk }}-chart-with-dataset" style="width: 50%; float: left; position: relative; margin: 10px 0px 10px;">
+            <canvas id="Question-{{ x.pk }}-with-dataset"></canvas>
+        </div>
+
+        <!-- Results shown of the survey without the dataset -->
+        <div class="question-{{ x.pk }}-chart-without-dataset" style="width: 50%; float: right; position: relative; margin: 10px 0px 10px;">
+            <canvas id="Question-{{ x.pk }}-without-dataset"></canvas>
+        </div>
+    </div>
+    {% endif %}
+    {% if x.pk == 2 or x.pk == 4 or x.pk == 6 or x.pk == 8 or x.pk == 10 or x.pk == 12 %}
+    <div class="question_{{ x.pk }} bg-dark text-white" style="width: 100%; padding: 0px 10px 0px; overflow: hidden;">
+        <h4 class="question-{{ x.pk }}-text" style="text-align: center; padding: 10px 0px 10px;">Question {{ x.pk }}: {{ x.question }}</h4>
+        <!-- Results shown of the survey with the dataset -->
+        <div class="question-{{ x.pk }}-chart-with-dataset" style="width: 50%; float: left; position: relative; margin: 10px 0px 10px;">
+            <canvas id="Question-{{ x.pk }}-with-dataset"></canvas>
+        </div>
+
+        <!-- Results shown of the survey without the dataset -->
+        <div class="question-{{ x.pk }}-chart-without-dataset" style="width: 50%; float: right; position: relative; margin: 10px 0px 10px;">
+            <canvas id="Question-{{ x.pk }}-without-dataset"></canvas>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    <!-- Times six -->
+
+<link rel="stylesheet" href="{% static 'css/Chart.css' %}">
+<script src="{% static 'js/Chart.bundle.js' %}"></script>
+<script src="{% static 'js/Chart.bundle.min.js' %}"></script>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').toggleClass('active');
+    });
+});
+</script>
+<!-- Scripts for the Polar Charts -->
+
+<!-- 
+Polar Chart:
+    Left Side:  data is Survey + Dataset
+    Area:       Light Area
+-->
+<script>
+{% for x, y in dataQuestions|zip:questionsDatasetAndSurvey %}
+    {% if x.pk == 1 or x.pk == 3 or x.pk == 5 or x.pk == 7 or x.pk == 9 or x.pk == 11 %}
+    var Charts = document.getElementById("Question-{{ x.pk }}-with-dataset");
+    var Data = {
+        labels: [
+            {% if x.pk == 1 or x.pk == 3 or x.pk == 5 or x.pk == 7 %}
+                "{{ x.answer_1 }}", "{{ x.answer_2|escapejs }}", "{{ x.answer_3|escapejs }}"
+            {% endif %}
+            {% if x.pk == 9 %}
+                "{{ x.answer_1 }}", "{{ x.answer_2 }}/{{ x.answer_3 }}", "{{ x.answer_4 }}"
+            {% endif %}
+            {% if x.pk == 11 %}
+                "{{ x.answer_1 }}", "{{ x.answer_2 }}"
+            {% endif %}
+        ],
+        datasets: [{
+            data: [
+                {% if x.pk == 1 or x.pk == 3 or x.pk == 5 or x.pk == 7 %}
+                    "{{ y.0 }}", "{{ y.1 }}", "{{ y.2 }}"
+                {% endif %}
+                {% if x.pk == 9 %}
+                    "{{ y.0 }}", "{{ y.1 }}", "{{ y.2 }}"
+                {% endif %}
+                {% if x.pk == 11 %}
+                    "{{ y.0 }}", "{{ y.2 }}"
+                {% endif %}
+            ],
+            backgroundColor: [
+                "rgba(255, 0, 0, 0.5)", // Red
+                "rgba(100, 255, 0, 0.5)", // Green
+                "rgba(200, 50, 255, 0.5)", // Purple
+            ]
+        }]
+    };
+    var chartOptions = {
+        startAngle: Math.PI / 6,
+        title: {
+            display: true,
+            text: 'Question {{ x.pk }} with dataset values'
+        },
+        legend: {
+            position: 'left'
+        },
+        animation: {
+            duration: 0
+        },
+        responsiveAnimationDuration: 0,
+    }
+    var polarAreaChart = new Chart(Charts, {
+        type: 'polarArea',
+        data: Data,
+        responsive: true,
+        options: chartOptions,
+    });
+    {% endif %}
+{% endfor %}
+</script>
+
+<!-- 
+Polar Chart:
+    Right Side:  data is Survey + Dataset
+    Area:       Light Area
+-->
+<script>
+{% for x, y in dataQuestions|zip:questionsSurvey %}
+    {% if x.pk == 1 or x.pk == 3 or x.pk == 5 or x.pk == 7 or x.pk == 9 or x.pk == 11 %}
+    var Charts = document.getElementById("Question-{{ x.pk }}-without-dataset");
+    var Data = {
+        labels: [
+            {% if x.pk == 1 or x.pk == 3 or x.pk == 5 or x.pk == 7 %}
+                "{{ x.answer_1 }}", "{{ x.answer_2|escapejs }}", "{{ x.answer_3|escapejs }}"
+            {% endif %}
+            {% if x.pk == 9 %}
+                "{{ x.answer_1 }}", "{{ x.answer_2 }}/{{ x.answer_3 }}", "{{ x.answer_4 }}"
+            {% endif %}
+            {% if x.pk == 11 %}
+                "{{ x.answer_1 }}", "{{ x.answer_2}}"
+            {% endif %}
+        ],
+        datasets: [{
+            data: [
+                {% if x.pk == 1 or x.pk == 3 or x.pk == 5 or x.pk == 7 %}
+                    "{{ y.0 }}", "{{ y.1 }}", "{{ y.2 }}"
+                {% endif %}
+                {% if x.pk == 9 %}
+                    "{{ y.0 }}", "{{ y.1 }}", "{{ y.2 }}"
+                {% endif %}
+                {% if x.pk == 11 %}
+                    "{{ y.0 }}", "{{ y.2 }}"
+                {% endif %}
+            ],
+            backgroundColor: [
+                "rgba(255, 0, 0, 0.5)", // Red
+                "rgba(100, 255, 0, 0.5)", // Green
+                "rgba(200, 50, 255, 0.5)", // Purple
+            ]
+        }]
+    };
+    var chartOptions = {
+        startAngle: Math.PI / 6,
+        title: {
+            display: true,
+            text: 'Question {{ x.pk }} without dataset values'
+        },
+        legend: {
+            position: 'right'
+        },
+        animation: {
+            duration: 0
+        },
+        responsiveAnimationDuration: 0,
+    }
+    var polarAreaChart = new Chart(Charts, {
+        type: 'polarArea',
+        data: Data,
+        responsive: true,
+        options: chartOptions,
+    });
+    {% endif %}
+{% endfor %}
+</script>
+
+<!-- 
+Polar Chart:
+    Left Side:  data is Survey + Dataset
+    Area:       Dark Area
+-->
+<script>
+{% for x, y in dataQuestions|zip:questionsDatasetAndSurvey %}
+    {% if x.pk == 2 or x.pk == 4 or x.pk == 6 or x.pk == 8 or x.pk == 10 or x.pk == 12 %}
+    var Charts = document.getElementById("Question-{{ x.pk }}-with-dataset");
+    var Data = {
+        labels: [
+            {% if x.pk == 4 or x.pk == 6 or x.pk == 12 %}
+                "{{ x.answer_1 }}", "{{ x.answer_2|escapejs }}", "{{ x.answer_3|escapejs }}"
+            {% endif %}
+            {% if x.pk == 8 %}
+                "{{ x.answer_1 }}", "{{ x.answer_2 }}/{{ x.answer_3 }}", "{{ x.answer_4 }}"
+            {% endif %}
+            {% if x.pk == 2 or x.pk == 10 %}
+                "{{ x.answer_1 }}", "{{ x.answer_2 }}"
+            {% endif %}
+        ],
+        datasets: [{
+            data: [
+                {% if x.pk == 4 or x.pk == 6 or x.pk == 12 %}
+                    "{{ y.0 }}", "{{ y.1 }}", "{{ y.2 }}"
+                {% endif %}
+                {% if x.pk == 8 %}
+                    "{{ y.0 }}", "{{ y.1 }}", "{{ y.2 }}"
+                {% endif %}
+                {% if x.pk == 2 or x.pk == 10 %}
+                    "{{ y.0 }}", "{{ y.2 }}"
+                {% endif %}
+            ],
+            backgroundColor: [
+                "rgba(255, 200, 0, 0.5)", // Yellow
+                "rgba(50, 255, 200, 0.5)", // Light blue
+                "rgba(50, 50, 255, 0.5)", // Dark blue
+            ]
+        }]
+    };
+    var chartOptions = {
+        startAngle: Math.PI / 6,
+        scale: {
+            ticks: {
+                backdropColor: 'rgba(0, 0, 0, 0)',
+                fontColor: 'white'
+            }
+        },
+        title: {
+            display: true,
+            text: 'Question {{ x.pk }} with dataset values',
+            fontColor: 'white'
+        },
+        legend: {
+            position: 'left',
+            labels: {
+                fontColor: 'white'
+            }
+        },
+        animation: {
+            duration: 0
+        },
+        responsiveAnimationDuration: 0,
+    }
+    var polarAreaChart = new Chart(Charts, {
+        type: 'polarArea',
+        data: Data,
+        responsive: true,
+        options: chartOptions,
+    });
+    {% endif %}
+{% endfor %}
+</script>
+
+<!-- 
+Polar Chart:
+    Right Side:  data is Survey + Dataset
+    Area:       Dark Area
+-->
+<script>
+{% for x, y in dataQuestions|zip:questionsSurvey %}
+    {% if x.pk == 2 or x.pk == 4 or x.pk == 6 or x.pk == 8 or x.pk == 10 or x.pk == 12 %}
+    var Charts = document.getElementById("Question-{{ x.pk }}-without-dataset");
+    var Data = {
+        labels: [
+            {% if x.pk == 4 or x.pk == 6 or x.pk == 12 %}
+                "{{ x.answer_1 }}", "{{ x.answer_2|escapejs }}", "{{ x.answer_3|escapejs }}"
+            {% endif %}
+            {% if x.pk == 8 %}
+                "{{ x.answer_1 }}", "{{ x.answer_2 }}/{{ x.answer_3 }}", "{{ x.answer_4 }}"
+            {% endif %}
+            {% if x.pk == 2 or x.pk == 10 %}
+                "{{ x.answer_1 }}", "{{ x.answer_2 }}"
+            {% endif %}
+        ],
+        datasets: [{
+            data: [
+                {% if x.pk == 4 or x.pk == 6 or x.pk == 12 %}
+                    "{{ y.0 }}", "{{ y.1 }}", "{{ y.2 }}"
+                {% endif %}
+                {% if x.pk == 8 %}
+                    "{{ y.0 }}", "{{ y.1 }}", "{{ y.2 }}"
+                {% endif %}
+                {% if x.pk == 2 or x.pk == 10 %}
+                    "{{ y.0 }}", "{{ y.2 }}"
+                {% endif %}
+            ],
+            backgroundColor: [
+                "rgba(255, 200, 0, 0.5)", // Yellow
+                "rgba(50, 255, 200, 0.5)", // Light blue
+                "rgba(50, 50, 255, 0.5)", // Dark blue
+            ]
+        }]
+    };
+    var chartOptions = {
+        startAngle: Math.PI / 6,
+        scale: {
+            ticks: {
+                backdropColor: 'rgba(0, 0, 0, 0)',
+                fontColor: 'white'
+            }
+        },
+        title: {
+            display: true,
+            text: 'Question {{ x.pk }} without dataset values',
+            fontColor: 'white'
+        },
+        legend: {
+            position: 'right',
+            labels: {
+                fontColor: 'white'
+            }
+        },
+        animation: {
+            duration: 0
+        },
+        responsiveAnimationDuration: 0,
+    }
+    var polarAreaChart = new Chart(Charts, {
+        type: 'polarArea',
+        data: Data,
+        responsive: true,
+        options: chartOptions,
+    });
+    {% endif %}
+{% endfor %}
+</script>
+
+{% endblock %}

@@ -45,3 +45,5 @@ py manage.py runserver <ENTER>
 > | v0.1    | 03-12-2020 | Uploaded to GitHub. |
 > | v0.1.1  | 03-12-2020 | Changed project name from AI to Artificial_Intelligence. |
 > | v0.2    | 04-12-2020 | Changed look of the User Interface. Added links to the sidebar for easy redirects. Also added comments to finished files. |
+> | v0.3    | 05-12-2020 | Updated the Main page and added some content for the results page. |
+> | v0.3.1  | 07-12-2020 | Made some significant changes to the Results page. |

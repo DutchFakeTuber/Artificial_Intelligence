@@ -1,6 +1,7 @@
-from django.shortcuts import render
-from results_AI.models import ResultsTable
-from django.http import HttpResponse
+from django.http.response import HttpResponseRedirect
+from django.urls import reverse
+from django.shortcuts import render, redirect
+from results_AI.models import ResultsSurvey
 from django.views.decorators.csrf import csrf_exempt
 from . import forms
 from .models import Questions
@@ -67,14 +68,34 @@ def index(request):
         # Fetch all values of the RadioButton elements and put it into an array
         answers = [request.POST.get(x) for x in allAnswers]
 
-        # """ # BEGIN - For testing purposes only;
+        """ # BEGIN - For testing purposes only;
         # Print all answers into the terminal
-        # for x in answers:
-            # print(x)
+        for x in answers:
+            print(x)
         
         # Return a HTTP Response and put all fetched data there
-        return HttpResponse((f'Question {x+1} is: ' + answers[x] + ' ') for x in range(12))
-        # """ # END - For testing purposes only
+        # from django.http.response import HttpResponse
+        # return HttpResponse((f'Question {x+1} is: ' + answers[x] + ' ') for x in range(12))
+        """ # END - For testing purposes only
+
+        surveyData = ResultsSurvey(
+            question_1=answers[0],
+            question_2=answers[1],
+            question_3=answers[2],
+            question_4=answers[3],
+            question_5=answers[4],
+            question_6=answers[5],
+            question_7=answers[6],
+            question_8=answers[7],
+            question_9=answers[8],
+            question_10=answers[9],
+            question_11=answers[10],
+            question_12=answers[11]
+        )
+        surveyData.save()
+
+        # Send user back to the Main page
+        return HttpResponseRedirect(reverse('mainPage_index'))
     
     # Send all data to the forms.html file to be used there
     return render(request, 'forms_AI_index.html', information)

@@ -1,8 +1,6 @@
-import sys
-sys.path.append('..')
-from django.urls import path
-from forms_AI import views
+from django.urls import path, include
+from . import views
 
 urlpatterns = [
-    path('', views.index, name='forms_AI_index')
+    path(r'', views.index, name='forms_AI_index'),
 ]

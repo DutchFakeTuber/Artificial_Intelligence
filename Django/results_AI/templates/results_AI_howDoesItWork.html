@@ -2,19 +2,7 @@
 
 {% block page_content %}
 <style>
-    .results {
-        width: 100%;
-    }
-    .results-text {
-        width: 30%;
-        float: left;
-        padding: 0px 10px 0px;
-    }
-    .results-graph {
-        width: 70%;
-        float: right;
-        padding: 0px 10px 0px;
-    }
+    /* Place specific styles for this page here */
 </style>
 
 <div id="content">
@@ -32,7 +20,7 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'results_AI_index' %}">Recommendations</a>
                     </li>
                     <li class="nav-item">
@@ -42,32 +30,14 @@
                         <a class="nav-link" href="{% url 'results_AI_perQuestion' %}">Per Question</a>
                     </li>
                     <!-- OPTIONAL -->
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="{% url 'results_AI_howDoesItWork' %}">How does it work?</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-    <!-- Highlight widget regarding results -->
-    <div class="ui-widget">
-        <div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
-            <p style="text-align: center;"><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-            <strong>Attention!</strong> The results that are shown on this page are only for advice, following and executing these recommendations are not mandatory.</p>
-        </div>
-    </div>
-    <div class="line"></div>
-    <div class="results">
-        <!-- Results described in text -->
-        <div class="results-text border">
-            <p>Enter results text here</p>
-        </div>
-
-        <!-- Results shown in graph -->
-        <div class="results-graph border border-left-0">
-            <p>Results graps should be here. Recommended chart: <a href="https://www.chartjs.org/" target="_blank" style="color: blue;">Charts.js Home</a></p>
-        </div>
-    </div>
+    <!-- Rest of the content goes here -->
 </div>
 
 <script type="text/javascript">

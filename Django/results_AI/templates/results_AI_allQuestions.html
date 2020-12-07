@@ -2,15 +2,15 @@
 
 {% block page_content %}
 <style>
-    .results {
+    .all-questions {
         width: 100%;
     }
-    .results-text {
+    .all-questions-text {
         width: 30%;
         float: left;
         padding: 0px 10px 0px;
     }
-    .results-graph {
+    .all-questions-graph {
         width: 70%;
         float: right;
         padding: 0px 10px 0px;
@@ -32,10 +32,10 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'results_AI_index' %}">Recommendations</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="{% url 'results_AI_allQuestions' %}">All Questions</a>
                     </li>
                     <li class="nav-item">
@@ -49,23 +49,22 @@
             </div>
         </div>
     </nav>
-    <!-- Highlight widget regarding results -->
-    <div class="ui-widget">
-        <div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
-            <p style="text-align: center;"><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-            <strong>Attention!</strong> The results that are shown on this page are only for advice, following and executing these recommendations are not mandatory.</p>
-        </div>
+    <div class="elaboration" style="text-align: center;">
+        <h4>Bar Chart for all questions</h4>
+        <p>
+            Wecome to the website, here some elaboration... add stuff here
+        </p>
     </div>
-    <div class="line"></div>
-    <div class="results">
+    <div class="all-questions">
         <!-- Results described in text -->
-        <div class="results-text border">
-            <p>Enter results text here</p>
+        <div class="all-questions-text border">
+            <p>Enter All Questions text here</p>
         </div>
 
         <!-- Results shown in graph -->
-        <div class="results-graph border border-left-0">
-            <p>Results graps should be here. Recommended chart: <a href="https://www.chartjs.org/" target="_blank" style="color: blue;">Charts.js Home</a></p>
+        <div class="all-questions-graph border border-left-0">
+            <p>Results graps should be here. Recommended chart: <a href="https://www.chartjs.org/samples/latest/charts/bar/stacked.html" target="_blank" style="color: blue;">Charts.js Stacked Bar Chart</a></p>
+            <p>Example of a stacked bar chart: <a href="https://travishorn.com/stacked-bar-chart-with-chart-js-846ebdf11c4e" target="_blank" style="color: blue;">Stacked Bar Chart Example</a></p>
         </div>
     </div>
 </div>

@@ -9,7 +9,7 @@ database = "C:/Users/Sybrand/Desktop/AI/Django/db.sqlite3"
 connector = sqlite3.connect(database)
 cursor = connector.cursor()
 
-# Function for reading table 'forms_AI_questions
+# Function for reading table 'forms_AI_questions'
 def checkTable():
     cursor.execute("SELECT * FROM forms_AI_questions")
     # Fetch all rows from table
@@ -38,12 +38,12 @@ Questions_Survey = {
 }
 # All answers of each question
 Answer_Question = {
-    "Question_1":  ["Yes", "No", "I don't know", None],
+    "Question_1":  ["Yes", "I don't know", "No", None],
     "Question_2":  ["Yes", "No", None, None],
     "Question_3":  ["Yes, I know several", "I know some", "No, I don't know any", None],
-    "Question_4":  ["I was aware of some", "Yes, I was aware of all of them", "No, I only became aware later", None],
-    "Question_5":  ["None did", "Some did", "Yes, they all did", None],
-    "Question_6":  ["None did", "Some did", "Yes, they all did", None],
+    "Question_4":  ["Yes, I was aware of all of them", "I was aware of some", "No, I only became aware later", None],
+    "Question_5":  ["Yes, they all did", "Some did", "None did", None],
+    "Question_6":  ["Yes, they all did", "Some did", "None did", None],
     "Question_7":  ["Yes, always", "Sometimes", "No", None],
     "Question_8":  ["Yes", "Possibly", "Sometimes", "No"],
     "Question_9":  ["Yes", "Possibly", "Sometimes", "No"],
@@ -53,6 +53,20 @@ Answer_Question = {
 }
 
 def fillData():
+    # Deleting the existing table
+    cursor.execute("DROP TABLE IF EXISTS forms_AI_questions")
+    connector.commit()
+
+    # Creating a new table with the same name
+    cursor.execute("CREATE TABLE IF NOT EXISTS 'forms_AI_questions'( \
+        'id' integer NOT NULL PRIMARY KEY AUTOINCREMENT, \
+        'question' varchar(255) NOT NULL, \
+        'answer_1' varchar(255) NOT NULL, \
+        'answer_2' varchar(255) NOT NULL, \
+        'answer_3' varchar(255) NULL, \
+        'answer_4' varchar(255) NULL \
+        )"
+    )
     # Making arrays with data for the database.
     questions = [
         Questions_Survey["Question_1"],
@@ -69,48 +83,60 @@ def fillData():
         Questions_Survey["Question_12"],
     ]
     answer_1 = [
-        Questions_Survey["Question_1"][0],
-        Questions_Survey["Question_2"][0],
-        Questions_Survey["Question_3"][0],
-        Questions_Survey["Question_4"][0],
-        Questions_Survey["Question_5"][0],
-        Questions_Survey["Question_6"][0],
-        Questions_Survey["Question_10"][0],
-        Questions_Survey["Question_11"][0],
-        Questions_Survey["Question_12"][0],
+        Answer_Question["Question_1"][0],
+        Answer_Question["Question_2"][0],
+        Answer_Question["Question_3"][0],
+        Answer_Question["Question_4"][0],
+        Answer_Question["Question_5"][0],
+        Answer_Question["Question_6"][0],
+        Answer_Question["Question_7"][0],
+        Answer_Question["Question_8"][0],
+        Answer_Question["Question_9"][0],
+        Answer_Question["Question_10"][0],
+        Answer_Question["Question_11"][0],
+        Answer_Question["Question_12"][0],
     ]
     answer_2 = [
-        Questions_Survey["Question_1"][1],
-        Questions_Survey["Question_2"][1],
-        Questions_Survey["Question_3"][1],
-        Questions_Survey["Question_4"][1],
-        Questions_Survey["Question_5"][1],
-        Questions_Survey["Question_6"][1],
-        Questions_Survey["Question_10"][1],
-        Questions_Survey["Question_11"][1],
-        Questions_Survey["Question_12"][1],
+        Answer_Question["Question_1"][1],
+        Answer_Question["Question_2"][1],
+        Answer_Question["Question_3"][1],
+        Answer_Question["Question_4"][1],
+        Answer_Question["Question_5"][1],
+        Answer_Question["Question_6"][1],
+        Answer_Question["Question_7"][1],
+        Answer_Question["Question_8"][1],
+        Answer_Question["Question_9"][1],
+        Answer_Question["Question_10"][1],
+        Answer_Question["Question_11"][1],
+        Answer_Question["Question_12"][1],
     ]
     answer_3 = [
-        Questions_Survey["Question_1"][2],
-        Questions_Survey["Question_2"][2],
-        Questions_Survey["Question_3"][2],
-        Questions_Survey["Question_4"][2],
-        Questions_Survey["Question_5"][2],
-        Questions_Survey["Question_6"][2],
-        Questions_Survey["Question_10"][2],
-        Questions_Survey["Question_11"][2],
-        Questions_Survey["Question_12"][2],
+        Answer_Question["Question_1"][2],
+        Answer_Question["Question_2"][2],
+        Answer_Question["Question_3"][2],
+        Answer_Question["Question_4"][2],
+        Answer_Question["Question_5"][2],
+        Answer_Question["Question_6"][2],
+        Answer_Question["Question_7"][2],
+        Answer_Question["Question_8"][2],
+        Answer_Question["Question_9"][2],
+        Answer_Question["Question_10"][2],
+        Answer_Question["Question_11"][2],
+        Answer_Question["Question_12"][2],
     ]
     answer_4 = [
-        Questions_Survey["Question_1"][3],
-        Questions_Survey["Question_2"][3],
-        Questions_Survey["Question_3"][3],
-        Questions_Survey["Question_4"][3],
-        Questions_Survey["Question_5"][3],
-        Questions_Survey["Question_6"][3],
-        Questions_Survey["Question_10"][3],
-        Questions_Survey["Question_11"][3],
-        Questions_Survey["Question_12"][3],
+        Answer_Question["Question_1"][3],
+        Answer_Question["Question_2"][3],
+        Answer_Question["Question_3"][3],
+        Answer_Question["Question_4"][3],
+        Answer_Question["Question_5"][3],
+        Answer_Question["Question_6"][3],
+        Answer_Question["Question_7"][3],
+        Answer_Question["Question_8"][3],
+        Answer_Question["Question_9"][3],
+        Answer_Question["Question_10"][3],
+        Answer_Question["Question_11"][3],
+        Answer_Question["Question_12"][3],
     ]
 
     # Injecting data into the database table 'forms_AI_questions' one line at a time.
@@ -132,8 +158,8 @@ def fillData():
     connector.close()
 
 def main():
-    # fillData()
-    checkTable()
+    fillData()
+    # checkTable()
 
 if __name__ == "__main__":
     main()
