@@ -4,6 +4,10 @@
 
 {% block page_content %}
 
+<link rel="stylesheet" href="{% static 'css/Chart.css' %}">
+<script src="{% static 'js/Chart.bundle.js' %}"></script>
+<script src="{% static 'js/Chart.bundle.min.js' %}"></script>
+
 <style>
     canvas {
         min-height: 100%;
@@ -84,11 +88,6 @@
     </div>
     {% endif %}
     {% endfor %}
-    <!-- Times six -->
-
-<link rel="stylesheet" href="{% static 'css/Chart.css' %}">
-<script src="{% static 'js/Chart.bundle.js' %}"></script>
-<script src="{% static 'js/Chart.bundle.min.js' %}"></script>
 
 <script type="text/javascript">
 $(document).ready(function () {
@@ -140,7 +139,7 @@ Polar Chart:
         }]
     };
     var chartOptions = {
-        startAngle: Math.PI / 6,
+        startAngle: -Math.PI / 6,
         title: {
             display: true,
             text: 'Question {{ x.pk }} with dataset values'
@@ -165,8 +164,8 @@ Polar Chart:
 
 <!-- 
 Polar Chart:
-    Right Side:  data is Survey + Dataset
-    Area:       Light Area
+    Right Side:  data is Survey
+    Area:        Light Area
 -->
 <script>
 {% for x, y in dataQuestions|zip:questionsSurvey %}
@@ -204,7 +203,7 @@ Polar Chart:
         }]
     };
     var chartOptions = {
-        startAngle: Math.PI / 6,
+        startAngle: -Math.PI / 6,
         title: {
             display: true,
             text: 'Question {{ x.pk }} without dataset values'
@@ -268,7 +267,7 @@ Polar Chart:
         }]
     };
     var chartOptions = {
-        startAngle: Math.PI / 6,
+        startAngle: -Math.PI / 6,
         scale: {
             ticks: {
                 backdropColor: 'rgba(0, 0, 0, 0)',
@@ -303,8 +302,8 @@ Polar Chart:
 
 <!-- 
 Polar Chart:
-    Right Side:  data is Survey + Dataset
-    Area:       Dark Area
+    Right Side:  data is Survey
+    Area:        Dark Area
 -->
 <script>
 {% for x, y in dataQuestions|zip:questionsSurvey %}
@@ -342,7 +341,7 @@ Polar Chart:
         }]
     };
     var chartOptions = {
-        startAngle: Math.PI / 6,
+        startAngle: -Math.PI / 6,
         scale: {
             ticks: {
                 backdropColor: 'rgba(0, 0, 0, 0)',

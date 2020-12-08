@@ -1,19 +1,21 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block page_content %}
+
+<link rel="stylesheet" href="{% static 'css/Chart.css' %}">
+<script src="{% static 'js/Chart.bundle.js' %}"></script>
+<script src="{% static 'js/Chart.bundle.min.js' %}"></script>
+
 <style>
-    .all-questions {
-        width: 100%;
-    }
-    .all-questions-text {
-        width: 30%;
-        float: left;
-        padding: 0px 10px 0px;
-    }
-    .all-questions-graph {
-        width: 70%;
-        float: right;
-        padding: 0px 10px 0px;
+    canvas {
+        min-height: 100%;
+        max-width: 75%;
+        max-height: 100%;
+        height: auto!important;
+        width: auto!important;
+        margin-left: auto;
+        margin-right: auto;
     }
 </style>
 
@@ -50,22 +52,20 @@
         </div>
     </nav>
     <div class="elaboration" style="text-align: center;">
-        <h4>Bar Chart for all questions</h4>
-        <p>
-            Wecome to the website, here some elaboration... add stuff here
+        <h4 style="text-align: center;">Stacked Bar Chart for all questions</h4>
+        <p style="text-align: left; width: 50%; margin-left: auto; margin-right: auto;">
+            All questions that are given in the survey are displayed here in a Stacked <a href="https://www.chartjs.org/docs/latest/charts/bar.html" target="_blank" class="Chartjs Bar Chart" style="color: blue;">Bar Chart</a>.
+            The Chart displays the amount of particular answers of the questions given in the survey. The labels are changed because the difference of answer options of the survey questions are varying too much to be displayed here. Therefore, the labels correspond to the following: 
+            <b style="color:red;">Disagree</b> equals to <b style="color:red">No/None</b>,
+            <b style="color:orange;">Neither agree nor disagree</b> equals to <b style="color:orange;">Don't know/Some</b>, and
+            <b style="color:green;">Agree</b> equals to <b style="color:green;">Yes</b>.
         </p>
     </div>
-    <div class="all-questions">
-        <!-- Results described in text -->
-        <div class="all-questions-text border">
-            <p>Enter All Questions text here</p>
-        </div>
-
         <!-- Results shown in graph -->
-        <div class="all-questions-graph border border-left-0">
-            <p>Results graps should be here. Recommended chart: <a href="https://www.chartjs.org/samples/latest/charts/bar/stacked.html" target="_blank" style="color: blue;">Charts.js Stacked Bar Chart</a></p>
-            <p>Example of a stacked bar chart: <a href="https://travishorn.com/stacked-bar-chart-with-chart-js-846ebdf11c4e" target="_blank" style="color: blue;">Stacked Bar Chart Example</a></p>
-        </div>
+    <div class="all-questions-graph border">
+        <canvas id="All-questions-stacked-bar-chart"></canvas>
+        <!-- <p>Results graps should be here. Recommended chart: <a href="https://www.chartjs.org/samples/latest/charts/bar/stacked.html" target="_blank" style="color: blue;">Charts.js Stacked Bar Chart</a></p>
+        <p>Example of a stacked bar chart: <a href="https://travishorn.com/stacked-bar-chart-with-chart-js-846ebdf11c4e" target="_blank" style="color: blue;">Stacked Bar Chart Example</a></p> -->
     </div>
 </div>
 
@@ -75,6 +75,60 @@ $(document).ready(function () {
         $('#sidebar').toggleClass('active');
     });
 });
+</script>
+<!-- Script for the Stacked Bar Chart -->
+<script>
+    var allQuestions = document.getElementById('All-questions-stacked-bar-chart');
+
+    var myChart = new Chart(allQuestions, {
+        type: 'bar',
+        data: {
+            labels: [
+                'Question 1',  'Question 2',  'Question 3',
+                'Question 4',  'Question 5',  'Question 6',
+                'Question 7',  'Question 8',  'Question 9',
+                'Question 10', 'Question 11', 'Question 12',
+            ],
+            datasets: [
+            {
+                label: ['Disagree'],
+                data: [
+                    "{{ Question_1.2 }}",  "{{ Question_2.2 }}",  "{{ Question_3.2 }}",
+                    "{{ Question_4.2 }}",  "{{ Question_5.2 }}",  "{{ Question_6.2 }}",
+                    "{{ Question_7.2 }}",  "{{ Question_8.2 }}",  "{{ Question_9.2 }}",
+                    "{{ Question_10.2 }}", "{{ Question_11.2 }}", "{{ Question_12.2 }}",
+                ],
+                backgroundColor: '#EBCCD1',
+            },
+            {
+                label: ['Neither agree nor disagree'],
+                data: [
+                    "{{ Question_1.1 }}",  "{{ Question_2.1 }}",  "{{ Question_3.1 }}",
+                    "{{ Question_4.1 }}",  "{{ Question_5.1 }}",  "{{ Question_6.1 }}",
+                    "{{ Question_7.1 }}",  "{{ Question_8.1 }}",  "{{ Question_9.1 }}",
+                    "{{ Question_10.1 }}", "{{ Question_11.1 }}", "{{ Question_12.1 }}",
+                ],
+                backgroundColor: '#FAEBCC',
+            },
+            {
+                label: ['Agrees'],
+                data: [
+                    "{{ Question_1.0 }}",  "{{ Question_2.0 }}",  "{{ Question_3.0 }}",
+                    "{{ Question_4.0 }}",  "{{ Question_5.0 }}",  "{{ Question_6.0 }}",
+                    "{{ Question_7.0 }}",  "{{ Question_8.0 }}",  "{{ Question_9.0 }}",
+                    "{{ Question_10.0 }}", "{{ Question_11.0 }}", "{{ Question_12.0 }}",
+                ],
+                backgroundColor: '#D6E9C6',
+            }
+            ]
+        },
+        options: {
+            scales: {
+                xAxes: [{ stacked: true }],
+                yAxes: [{ stacked: true }]
+            },
+        }
+    });
 </script>
 
 {% endblock %}
