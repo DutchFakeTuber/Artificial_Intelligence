@@ -26,18 +26,18 @@ x = dataset[:-DATASET_SPLIT, 0:SELECTED_COUNT]
 y = dataset[:-DATASET_SPLIT, SELECTED_COUNT]
 
 model = Sequential()
-model.add(Dense(12, input_dim=len(selected_set) - 1, kernel_initializer='normal', activation='relu'))
-'''
+model.add(Dense(24, input_dim=len(selected_set) - 1, kernel_initializer='normal', activation='relu'))
+
 model.add(Dense(55, activation='relu'))
 model.add(Dense(125, activation='relu'))
 model.add(Dense(70, activation='relu'))
 model.add(Dense(40, activation='relu'))
 model.add(Dense(40, activation='relu'))
-'''
+
 model.add(Dense(1, activation='linear'))
 model.compile(loss='mean_squared_error', metrics=['accuracy'], optimizer='adam')
 
-history = model.fit(x, y, epochs=50, batch_size=5)
+history = model.fit(x, y, epochs=200, batch_size=5)
 
 model.save('../Django/results_AI/predict_model')
 

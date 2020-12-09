@@ -35,4 +35,3 @@ class ResultsSurvey(models.Model):
 
     def get_result_list(self):
         return [getattr(self, f'question_{i + 1}') for i in range(12)]
-

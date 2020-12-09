@@ -192,3 +192,30 @@ div.average_high {
 div.average_high p {
     font-size: 24px;
 }
+div.recommendation {
+    font-size: 24px;
+    text-align: center;
+    color: darkgrey;
+}
+#recommendations {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#recommendations td, #recommendations th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#recommendations tr:nth-child(even){background-color: #f2f2f2;}
+
+#recommendations th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4bc0c0;;
+  color: white;
+}
+#recommendations th p {
+  color: white;
+}

@@ -1,6 +1,14 @@
 {% extends "base.html" %}
 
+{% load static %}
+{% load tags %}
+
 {% block page_content %}
+
+<link rel="stylesheet" href="{% static 'css/Chart.css' %}">
+<script src="{% static 'js/Chart.bundle.js' %}"></script>
+<script src="{% static 'js/Chart.bundle.min.js' %}"></script>
+
 <style>
     .results {
         width: 100%;
@@ -73,16 +81,20 @@
         <p>Is this an asylum?!</p>
     </div>
     {% endif %}
-    <div class="results">
-        <!-- Results described in text -->
-        <div class="results-text border">
-            <p>{{average}}</p>
-        </div>
-
-        <!-- Results shown in graph -->
-        <div class="results-graph border border-left-0">
-            <p>Results graps should be here. Recommended chart: <a href="https://www.chartjs.org/" target="_blank" style="color: blue;">Charts.js Home</a></p>
-        </div>
+    {% if average >= 33 %}
+    <table id="recommendations">
+        <tr>
+            <th><p>Recommendations</p></th>
+        </tr>
+        {% for recommendation in recommendations %}
+        <tr>
+            <td><p>{{recommendation}}</p></td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    <div class="result-graph">
+        <canvas id="result-graph"></canvas>
     </div>
 </div>
 
@@ -93,5 +105,21 @@ $(document).ready(function () {
     });
 });
 </script>
-
+<script>
+var ctx = document.getElementById('result-graph').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: {{labels}},
+        datasets: [{
+            label: 'Result score',
+            borderColor: '#4bc0c0',
+            backgroundColor: '#4bc0c0',
+            data: {{predictions}},
+        }]
+    },
+    options: {
+    }
+});
+</script>
 {% endblock %}
