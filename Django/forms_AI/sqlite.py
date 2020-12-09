@@ -4,12 +4,14 @@ import sqlite3
 This sqlite program is made solely for injecting new data into the database if something went wrong.
 """
 
-database = "C:/Users/Sybrand/Desktop/AI/Django/db.sqlite3"
+database = "../db.sqlite3"
 
 connector = sqlite3.connect(database)
 cursor = connector.cursor()
 
 # Function for reading table 'forms_AI_questions'
+
+
 def checkTable():
     cursor.execute("SELECT * FROM forms_AI_questions")
     # Fetch all rows from table
@@ -20,6 +22,7 @@ def checkTable():
         print(x)
 
     connector.close()
+
 
 # All questions used in the survey
 Questions_Survey = {
@@ -52,6 +55,7 @@ Answer_Question = {
     "Question_12": ["Yes, all of them", "Some of them", "None of them", None],
 }
 
+
 def fillData():
     # Deleting the existing table
     cursor.execute("DROP TABLE IF EXISTS forms_AI_questions")
@@ -66,7 +70,7 @@ def fillData():
         'answer_3' varchar(255) NULL, \
         'answer_4' varchar(255) NULL \
         )"
-    )
+                   )
     # Making arrays with data for the database.
     questions = [
         Questions_Survey["Question_1"],
@@ -145,7 +149,7 @@ def fillData():
         values = (a, b, c, d, e)
         cursor.execute(command, values)
         connector.commit()
-    
+
     # Read table 'forms_AI_questions'
     cursor.execute("SELECT * FROM forms_AI_questions")
     # Fetch all lines
@@ -153,13 +157,16 @@ def fillData():
     # Print one line at a time
     for x in data:
         print(x)
-    
-    #Closing connection with database
+
+    # Closing connection with database
     connector.close()
+
 
 def main():
     fillData()
     # checkTable()
 
+
 if __name__ == "__main__":
     main()
+

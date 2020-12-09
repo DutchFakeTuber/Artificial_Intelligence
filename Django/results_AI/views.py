@@ -21,7 +21,8 @@ def get_prediction_average():
     filename = os.path.join(dir, 'predict_model')
     model = load_model(filename)
     answers = [answer.get_result_list() for answer in ResultsSurvey.objects.all()]
-    print(answers)
+    if len(answers) == 0:
+        return -1
     predictions = [result[0] for result in model.predict(answers)]
     return mean(predictions)
 

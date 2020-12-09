@@ -1,14 +1,17 @@
-import sqlite3, csv
+import sqlite3
+import csv
 
 """
 This sqlite program is made for:
     Injecting dataset data into the table;
     Resetting the Survey table, making it blank again.
 """
-csvfilepath = "C:/Users/Sybrand/Desktop/AI/OtherFiles/dataset.csv"
-database = "C:/Users/Sybrand/Desktop/AI/Django/db.sqlite3"
+csvfilepath = "dataset.csv"
+database = "../db.sqlite3"
 
 # Function for reading table 'results_AI_resultsdataset' and 'results_AI_resultssurvey'
+
+
 def checkTable():
     connector = sqlite3.connect(database)
     cursor = connector.cursor()
@@ -21,7 +24,7 @@ def checkTable():
     print("Data in the Dataset Table:\n")
     for x in data:
         print(x)
-    
+
     # Fetch data from the survey table
     cursor.execute("SELECT * FROM results_AI_resultssurvey")
     # Fetch all rows from table
@@ -32,6 +35,7 @@ def checkTable():
         print(x)
 
     connector.close()
+
 
 def resetSurveyTable():
     connector = sqlite3.connect(database)
@@ -67,6 +71,7 @@ def resetSurveyTable():
 
     connector.close()
 
+
 def fillDatatasetTable():
     data = []
     # Read data from csv file
@@ -79,7 +84,7 @@ def fillDatatasetTable():
                     x = row[i] = None
             # Put results as an array into data
             data.append(row)
-        print(data) # For testing only
+        print(data)  # For testing only
 
     # Assign new arrays for each question
     question1 = []
@@ -116,7 +121,8 @@ def fillDatatasetTable():
     connector = sqlite3.connect(database)
     cursor = connector.cursor()
     # Injecting data into the database table 'results_AI_resultsdataset' one line at a time.
-    for a, b, c, d, e, f, g, h, i, j, k, l in zip(question1, question2, question3, question4, question5, question6, question7, question8, question9, question10, question11, question12): # Change if statement
+    # Change if statement
+    for a, b, c, d, e, f, g, h, i, j, k, l in zip(question1, question2, question3, question4, question5, question6, question7, question8, question9, question10, question11, question12):
         command = " \
             INSERT INTO results_AI_resultsdataset \
             (question_1, question_2, question_3, question_4, question_5, question_6, question_7, question_8, question_9, question_10, question_11, question_12) \
@@ -124,7 +130,7 @@ def fillDatatasetTable():
         values = (a, b, c, d, e, f, g, h, i, j, k, l)
         cursor.execute(command, values)
         connector.commit()
-    
+
     # Read table 'results_AI_resultsdataset'
     cursor.execute("SELECT * FROM results_AI_resultsdataset")
     # Fetch all lines
@@ -132,14 +138,17 @@ def fillDatatasetTable():
     # Print one line at a time
     for x in data:
         print(x)
-    
-    #Closing connection with database
+
+    # Closing connection with database
     connector.close()
+
 
 def main():
     resetSurveyTable()
     # fillDatatasetTable()
     # checkTable()
 
+
 if __name__ == "__main__":
     main()
+
