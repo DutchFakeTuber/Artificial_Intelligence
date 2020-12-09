@@ -5,4 +5,4 @@ dataset = get_dataset()
 
 
 df = DataFrame(result, columns=[f'question_{i + 1}' for i in range(TOTAL_QUESTIONS)])
-df.corr().to_csv('data2.csv')
+df.corr().to_csv('data.csv')

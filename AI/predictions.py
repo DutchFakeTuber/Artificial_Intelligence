@@ -26,18 +26,20 @@ x = dataset[:-DATASET_SPLIT, 0:SELECTED_COUNT]
 y = dataset[:-DATASET_SPLIT, SELECTED_COUNT]
 
 model = Sequential()
-model.add(Dense(25, input_dim=len(selected_set) - 1, kernel_initializer='normal', activation='relu'))
+model.add(Dense(12, input_dim=len(selected_set) - 1, kernel_initializer='normal', activation='relu'))
+'''
 model.add(Dense(55, activation='relu'))
 model.add(Dense(125, activation='relu'))
 model.add(Dense(70, activation='relu'))
 model.add(Dense(40, activation='relu'))
 model.add(Dense(40, activation='relu'))
+'''
 model.add(Dense(1, activation='linear'))
 model.compile(loss='mean_squared_error', metrics=['accuracy'], optimizer='adam')
 
 history = model.fit(x, y, epochs=50, batch_size=5)
 
-model.save('predictormodelComplete.h5')
+model.save('../Django/results_AI/predict_model')
 
 pyplot.plot(history.history['accuracy'])
 pyplot.title('Model accuracy')
@@ -46,14 +48,14 @@ pyplot.xlabel('Epoch')
 pyplot.legend(['Train', 'Test'], loc='upper left')
 pyplot.show()
 
-a = dataset[-DATASET_SPLIT:, 0:variables]
-b = dataset[-DATASET_SPLIT:, variables]
+a = dataset[-DATASET_SPLIT:, 0:SELECTED_COUNT]
+b = dataset[-DATASET_SPLIT:, SELECTED_COUNT]
 
 predictions = model.predict(a)
 error = 0
 for i in range(len(predictions)):
-    print((predictions[i] * 2).round() / 2, dataset[-(DATASET_SPLIT-i), variables])
-    error += abs(predictions[i].round() - dataset[-(DATASET_SPLIT-i), variables])
+    print((predictions[i] * 2).round() / 2, dataset[-(DATASET_SPLIT-i), SELECTED_COUNT])
+    error += abs(predictions[i].round() - dataset[-(DATASET_SPLIT-i), SELECTED_COUNT])
 
 
 error = error / DATASET_SPLIT
