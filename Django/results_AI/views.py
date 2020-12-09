@@ -12,7 +12,7 @@ import numpy
 
 
 def index(request):
-    average = get_prediction_average()
+    average = int(get_prediction_average() * 100)
     return render(request, 'results_AI_index.html', {'average': average})
 
 
@@ -50,4 +50,3 @@ def perQuestion(request):
 
 def howDoesItWork(request):
     return render(request, 'results_AI_howDoesItWork.html', {})
-

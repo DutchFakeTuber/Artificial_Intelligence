@@ -57,6 +57,22 @@
         </div>
     </div>
     <div class="line"></div>
+    {% if average < 33 %}
+    <div class="average_low">
+        {{average}}/100
+        <p>Everything is looking good!</p>
+    </div>
+    {% elif average < 66 %}
+    <div class="average_medium">
+        {{average}}/100
+        <p>Some things can be improved!</p>
+    </div>
+    {% else %}
+    <div class="average_high">
+        {{average}}/100
+        <p>Is this an asylum?!</p>
+    </div>
+    {% endif %}
     <div class="results">
         <!-- Results described in text -->
         <div class="results-text border">

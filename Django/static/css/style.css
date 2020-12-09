@@ -167,3 +167,28 @@ a.GitHub:hover {
         display: none;
     }
 }
+
+div.average_low {
+    font-size: 48px;
+    text-align: center;
+    color: #4bc0c0;
+}
+div.average_low p {
+    font-size: 24px;
+}
+div.average_medium {
+    font-size: 48px;
+    text-align: center;
+    color: #ffcd56;
+}
+div.average_medium p {
+    font-size: 24px;
+}
+div.average_high {
+    font-size: 48px;
+    text-align: center;
+    color: #fe6384;
+}
+div.average_high p {
+    font-size: 24px;
+}
