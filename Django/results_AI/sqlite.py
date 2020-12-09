@@ -1,5 +1,4 @@
-import sqlite3
-import csv
+import sqlite3, csv, random, datetime, os
 
 """
 This sqlite program is made for:
@@ -10,7 +9,7 @@ csvfilepath = "dataset.csv"
 database = "../db.sqlite3"
 
 # Function for reading table 'results_AI_resultsdataset' and 'results_AI_resultssurvey'
-
+print(os.getcwd())
 
 def checkTable():
     connector = sqlite3.connect(database)
@@ -30,12 +29,49 @@ def checkTable():
     # Fetch all rows from table
     data = cursor.fetchall()
     # Print one row at a time
-    print("Data in the Survey Table:\n")
+    print("\nData in the Survey Table:\n")
     for x in data:
         print(x)
 
     connector.close()
 
+def tableInjector(amount=25):
+    connector = sqlite3.connect(database)
+    cursor = connector.cursor()
+    
+    for y in range(amount):
+        choice = [0.0, 0.5, 1.0]
+        randomGen = [
+        random.choice(choice), random.choice(choice), random.choice(choice),
+        random.choice(choice), random.choice(choice), random.choice(choice),
+        random.choice(choice), random.choice(choice), random.choice(choice),
+        random.choice(choice), random.choice(choice), random.choice(choice)
+    ]
+        randomDict = {
+            f"question_{i + 1}": x for i, x in zip(range(12), randomGen)
+        }
+
+        command = (
+            "INSERT INTO results_AI_resultssurvey ( \
+                question_1, question_2, question_3, question_4, \
+                question_5, question_6, question_7, question_8, \
+                question_9, question_10, question_11, question_12, dateAndTime \
+                ) VALUES ( \
+                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? \
+                    )"
+        )
+        values = (
+            randomDict["question_1"],  randomDict["question_2"],  randomDict["question_3"],
+            randomDict["question_4"],  randomDict["question_5"],  randomDict["question_6"],
+            randomDict["question_7"],  randomDict["question_8"],  randomDict["question_9"],
+            randomDict["question_10"], randomDict["question_11"], randomDict["question_12"],
+            datetime.datetime.now()
+        )
+        cursor.execute(command, values)
+        connector.commit()
+        print(f"Injected {y + 1} lines into the database.")
+
+    connector.close()
 
 def resetSurveyTable():
     connector = sqlite3.connect(database)
@@ -144,9 +180,10 @@ def fillDatatasetTable():
 
 
 def main():
-    resetSurveyTable()
+    # resetSurveyTable()
     # fillDatatasetTable()
     # checkTable()
+    tableInjector() # Add keyword argument (**kwargs) amount={number} if you want more or less lines added than 25.
 
 
 if __name__ == "__main__":
