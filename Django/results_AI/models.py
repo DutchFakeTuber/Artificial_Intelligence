@@ -1,6 +1,8 @@
 from django.db import models
 
 # In this case two tables are used; one for the dataset and one for the survey data.
+
+
 class ResultsDataset(models.Model):
     question_1 = models.FloatField(blank=True, null=True)
     question_2 = models.FloatField(blank=True, null=True)
@@ -14,6 +16,7 @@ class ResultsDataset(models.Model):
     question_10 = models.FloatField(blank=True, null=True)
     question_11 = models.FloatField(blank=True, null=True)
     question_12 = models.FloatField(blank=True, null=True)
+
 
 class ResultsSurvey(models.Model):
     question_1 = models.FloatField()
@@ -29,3 +32,7 @@ class ResultsSurvey(models.Model):
     question_11 = models.FloatField()
     question_12 = models.FloatField()
     dateAndTime = models.DateTimeField(auto_now_add=True)
+
+    def get_result_list(self):
+        return [getattr(self, f'question_{i + 1}') for i in range(12)]
+

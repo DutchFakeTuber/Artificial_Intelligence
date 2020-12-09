@@ -1,28 +1,37 @@
 from django.shortcuts import render
 from forms_AI.models import Questions
+from keras.models import load_model
 from . import dataFetcher
+from statistics import mean
+from .models import ResultsSurvey
+import tensorflow
+import os
+import numpy
 
 # Create your views here.
+
+
 def index(request):
-    return render(request, 'results_AI_index.html', {})
+    average = get_prediction_average()
+    return render(request, 'results_AI_index.html', {'average': average})
+
+
+def get_prediction_average():
+    dir = os.path.dirname(__file__)
+    filename = os.path.join(dir, 'predict_model')
+    model = load_model(filename)
+    answers = [answer.get_result_list() for answer in ResultsSurvey.objects.all()]
+    print(answers)
+    predictions = [result[0] for result in model.predict(answers)]
+    return mean(predictions)
+
 
 def allQuestions(request):
     questionsSurvey = dataFetcher.SurveyFetcher().FetchAllData()
-    information = {
-        "Question_1": questionsSurvey[0],
-        "Question_2": questionsSurvey[1],
-        "Question_3": questionsSurvey[2],
-        "Question_4": questionsSurvey[3],
-        "Question_5": questionsSurvey[4],
-        "Question_6": questionsSurvey[5],
-        "Question_7": questionsSurvey[6],
-        "Question_8": questionsSurvey[7],
-        "Question_9": questionsSurvey[8],
-        "Question_10": questionsSurvey[9],
-        "Question_11": questionsSurvey[10],
-        "Question_12": questionsSurvey[11],
-    }
+    information = {f'Question_{i + 1}': questionsSurvey[i] for i in range(12)}
+
     return render(request, 'results_AI_allQuestions.html', information)
+
 
 def perQuestion(request):
     questionsSurvey = dataFetcher.SurveyFetcher().FetchAllData()
@@ -38,5 +47,7 @@ def perQuestion(request):
     }
     return render(request, 'results_AI_perQuestion.html', information)
 
+
 def howDoesItWork(request):
     return render(request, 'results_AI_howDoesItWork.html', {})
+
