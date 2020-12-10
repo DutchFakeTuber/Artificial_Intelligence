@@ -14,12 +14,12 @@
         width: 100%;
     }
     .results-text {
-        width: 30%;
+        width: 50%;
         float: left;
         padding: 0px 10px 0px;
     }
     .results-graph {
-        width: 70%;
+        width: 50%;
         float: right;
         padding: 0px 10px 0px;
     }
@@ -81,20 +81,27 @@
         <p>Is this an asylum?!</p>
     </div>
     {% endif %}
-    {% if average >= 33 %}
-    <table id="recommendations">
-        <tr>
-            <th><p>Recommendations</p></th>
-        </tr>
-        {% for recommendation in recommendations %}
-        <tr>
-            <td><p>{{recommendation}}</p></td>
-        </tr>
-        {% endfor %}
-    </table>
-    {% endif %}
-    <div class="result-graph">
-        <canvas id="result-graph"></canvas>
+    <div class="results">
+        <!-- Results described in text -->
+        <div class="results-text">
+            {% if average >= 33 %}
+            <table id="recommendations">
+                <tr>
+                    <th><p>Recommendations</p></th>
+                </tr>
+                {% for recommendation in recommendations %}
+                <tr>
+                    <td><p>{{recommendation}}</p></td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% endif %}
+        </div>
+
+        <!-- Results shown in graph -->
+        <div class="results-graph">
+            <canvas id="result-graph"></canvas>
+        </div>
     </div>
 </div>
 
@@ -116,7 +123,15 @@ var myChart = new Chart(ctx, {
             borderColor: '#4bc0c0',
             backgroundColor: '#4bc0c0',
             data: {{predictions}},
-        }]
+            order: 1,
+        }, {
+            label: 'Average score',
+            data: {{averages}},
+            type: 'line',
+            fill: false,
+            borderColor: '#ffcd56',
+            order: 0,
+        }],
     },
     options: {
     }

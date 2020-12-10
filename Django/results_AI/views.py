@@ -40,11 +40,13 @@ def index(request):
     recommendations = recommendations[:0 if average < 33 else 2 if average < 66 else 4]
 
     predictions = [min(100, max(0, int(prediction * 100))) for prediction in predictions]
+    averages = [int(mean(predictions[:i + 1]) + 0.5) for i in range(len(predictions))]
     return render(request, 'results_AI_index.html', {
         'average': average,
         'recommendations': recommendations,
         'predictions': predictions,
         'labels': [i for i in range(len(predictions))],
+        'averages': averages,
     })
 
 
