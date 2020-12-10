@@ -6,7 +6,8 @@ This sqlite program is made for:
     Resetting the Survey table, making it blank again.
 """
 csvfilepath = "dataset.csv"
-database = "../db.sqlite3"
+dir = os.path.dirname(__file__)
+database = os.path.join(dir, "../db.sqlite3")
 
 # Function for reading table 'results_AI_resultsdataset' and 'results_AI_resultssurvey'
 print(os.getcwd())
@@ -42,11 +43,11 @@ def tableInjector(amount=25):
     for y in range(amount):
         choice = [0.0, 0.5, 1.0]
         randomGen = [
-        random.choice(choice), random.choice(choice), random.choice(choice),
-        random.choice(choice), random.choice(choice), random.choice(choice),
-        random.choice(choice), random.choice(choice), random.choice(choice),
-        random.choice(choice), random.choice(choice), random.choice(choice)
-    ]
+            random.choice(choice), random.choice(choice), random.choice(choice),
+            random.choice(choice), random.choice(choice), random.choice(choice),
+            random.choice(choice), random.choice(choice), random.choice(choice),
+            random.choice(choice), random.choice(choice), random.choice(choice)
+        ]
         randomDict = {
             f"question_{i + 1}": x for i, x in zip(range(12), randomGen)
         }
