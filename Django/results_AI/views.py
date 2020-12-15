@@ -32,15 +32,20 @@ def get_question_recommendations():
 
 def index(request):
     predictions = get_predictions()
-    average = min(100, max(0, int(mean(predictions) * 100)))
+    if predictions:
+        average = min(100, max(0, int(mean(predictions) * 100)))
 
-    recommendation_averages = get_question_recommendations()
-    sorted_recommendations = sorted(recommendation_averages, key=recommendation_averages.get)
-    recommendations = [question_recommendations[r] for r in sorted_recommendations]
-    recommendations = recommendations[:0 if average < 33 else 2 if average < 66 else 4]
+        recommendation_averages = get_question_recommendations()
+        sorted_recommendations = sorted(recommendation_averages, key=recommendation_averages.get)
+        recommendations = [question_recommendations[r] for r in sorted_recommendations]
+        recommendations = recommendations[:0 if average < 33 else 2 if average < 66 else 4]
 
-    predictions = [min(100, max(0, int(prediction * 100))) for prediction in predictions]
-    averages = [int(mean(predictions[:i + 1]) + 0.5) for i in range(len(predictions))]
+        predictions = [min(100, max(0, int(prediction * 100))) for prediction in predictions]
+        averages = [int(mean(predictions[:i + 1]) + 0.5) for i in range(len(predictions))]
+    else:
+        average = 0
+        recommendations = []
+        averages = []
     return render(request, 'results_AI_index.html', {
         'average': average,
         'recommendations': recommendations,
