@@ -28,7 +28,7 @@ If you are using VS Code, executing the virtual environment script can be tricky
 {
     "_comment": "Setting for allowing to run scripts in the terminal",
     "terminal.integrated.shellArgs.windows": ["-ExecutionPolicy", "Bypass"],
-    "_comment": "Path for the virtual environment of python (from the folder AI's perspective). Use '\\'",
+    "_comment": "Path for the virtual environment of python (from the base folder's perspective). Use '\\'",
     "python.pythonPath": "{path to your virtual environment folder}"
 }
 ```
@@ -40,10 +40,12 @@ cd ./Django <ENTER>
 py manage.py runserver <ENTER>
 ```
 ## Changes made to the project:
-> | Version | Date       | Comments                                                 |
-> | :-----: | :--------: | -------------------------------------------------------- |
-> | v0.1    | 03-12-2020 | Uploaded to GitHub. |
-> | v0.1.1  | 03-12-2020 | Changed project name from AI to Artificial_Intelligence. |
-> | v0.2    | 04-12-2020 | Changed look of the User Interface. Added links to the sidebar for easy redirects. Also added comments to finished files. |
-> | v0.3    | 05-12-2020 | Updated the Main page and added some content for the results page. |
-> | v0.3.1  | 07-12-2020 | Made some significant changes to the Results page. |
+| Version | Date       | Comments                                                                                                                  |
+| :-----: | :--------: | ------------------------------------------------------------------------------------------------------------------------- |
+| v0.1    | 03-12-2020 | Uploaded to GitHub.                                                                                                       |
+| v0.1.1  | 03-12-2020 | Changed project name from AI to Artificial_Intelligence.                                                                  |
+| v0.2    | 04-12-2020 | Changed look of the User Interface. Added links to the sidebar for easy redirects. Also added comments to finished files. |
+| v0.3    | 05-12-2020 | Updated the Main page and added some content for the results page.                                                        |
+| v0.3.1  | 07-12-2020 | Made some significant changes to the Results page.                                                                        |
+| v0.4    | 08-12-2020 | Added Machine Learning elements to the code.                                                                              |
+| v0.5    | 10-12-2020 | Made the Recommendations page functional with a chart and graph                                                           |
