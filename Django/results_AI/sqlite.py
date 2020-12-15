@@ -1,4 +1,8 @@
-import sqlite3, csv, random, datetime, os
+import sqlite3
+import csv
+import random
+import datetime
+import os
 
 """
 This sqlite program is made for:
@@ -11,6 +15,7 @@ database = os.path.join(dir, "../db.sqlite3")
 
 # Function for reading table 'results_AI_resultsdataset' and 'results_AI_resultssurvey'
 print(os.getcwd())
+
 
 def checkTable():
     connector = sqlite3.connect(database)
@@ -36,10 +41,11 @@ def checkTable():
 
     connector.close()
 
+
 def tableInjector(amount=25):
     connector = sqlite3.connect(database)
     cursor = connector.cursor()
-    
+
     for y in range(amount):
         choice = [0.0, 0.5, 1.0]
         randomGen = [
@@ -73,6 +79,7 @@ def tableInjector(amount=25):
         print(f"Injected {y + 1} lines into the database.")
 
     connector.close()
+
 
 def resetSurveyTable():
     connector = sqlite3.connect(database)
@@ -184,9 +191,8 @@ def main():
     # resetSurveyTable()
     # fillDatatasetTable()
     # checkTable()
-    tableInjector() # Add keyword argument (**kwargs) amount={number} if you want more or less lines added than 25.
+    tableInjector()  # Add keyword argument (**kwargs) amount={number} if you want more or less lines added than 25.
 
 
 if __name__ == "__main__":
     main()
-

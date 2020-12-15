@@ -50,7 +50,7 @@ def index(request):
         'average': average,
         'recommendations': recommendations,
         'predictions': predictions,
-        'labels': [i for i in range(len(predictions))],
+        'labels': [i + 1 for i in range(len(predictions))],
         'averages': averages,
     })
 
