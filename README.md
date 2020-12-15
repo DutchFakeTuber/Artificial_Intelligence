@@ -48,4 +48,5 @@ py manage.py runserver <ENTER>
 | v0.3    | 05-12-2020 | Updated the Main page and added some content for the results page.                                                        |
 | v0.3.1  | 07-12-2020 | Made some significant changes to the Results page.                                                                        |
 | v0.4    | 08-12-2020 | Added Machine Learning elements to the code.                                                                              |
-| v0.5    | 10-12-2020 | Made the Recommendations page functional with a chart and graph                                                           |
+| v0.5    | 10-12-2020 | Made the Recommendations page functional with a chart and graph.                                                          |
+| v0.6    | 15-12-2020 | Added content to the _Results - How does it work_ page.                                                                   |
