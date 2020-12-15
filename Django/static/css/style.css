@@ -219,3 +219,30 @@ div.recommendation {
 #recommendations th p {
   color: white;
 }
+.container-hdiw {
+    width: 100%;
+    margin: 10px auto;
+    padding: 5px;
+    display: inline-block;
+    border: 1px;
+    border-style:solid;
+    border-color: #a9a9a91a;
+
+
+}
+.left
+{
+    width: 48%;
+    float: left;
+}
+.left img {
+   width: 100%;
+}
+.right
+{
+    width: 48%;
+    float: right;
+}
+.right img {
+   width: 100%;
+}
